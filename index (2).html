@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Recovery Earth</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial, Helvetica, sans-serif;
+color:white;
+background:#081411;
+overflow-x:hidden;
+}
+
+.container{
+max-width:1000px;
+margin:auto;
+padding:120px 20px;
+text-align:center;
+}
+
+h1{
+font-size:60px;
+letter-spacing:2px;
+margin-bottom:10px;
+}
+
+h2{
+font-size:36px;
+margin-top:80px;
+}
+
+p{
+font-size:18px;
+opacity:.85;
+line-height:1.6;
+}
+
+.tagline{
+font-size:24px;
+margin-bottom:40px;
+opacity:.9;
+}
+
+.section{
+margin-top:80px;
+}
+
+.email-box{
+margin-top:30px;
+display:flex;
+justify-content:center;
+gap:10px;
+flex-wrap:wrap;
+}
+
+input{
+padding:15px;
+font-size:16px;
+border-radius:8px;
+border:none;
+width:260px;
+}
+
+button{
+padding:15px 25px;
+font-size:16px;
+background:#2ec27e;
+border:none;
+border-radius:8px;
+cursor:pointer;
+color:white;
+}
+
+button:hover{
+background:#26a96a;
+}
+
+footer{
+margin-top:120px;
+text-align:center;
+opacity:.6;
+padding-bottom:40px;
+}
+
+/* Earth animation */
+
+.earth{
+position:fixed;
+top:-200px;
+right:-200px;
+width:600px;
+height:600px;
+background:radial-gradient(circle at 30% 30%, #2ec27e, #0c2e24);
+border-radius:50%;
+opacity:.15;
+animation:spin 60s linear infinite;
+}
+
+@keyframes spin{
+0%{transform:rotate(0deg);}
+100%{transform:rotate(360deg);}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="earth"></div>
+
+<div class="container">
+
+<h1>Recovery Earth</h1>
+
+<div class="tagline">
+Technology to help the planet recover
+</div>
+
+<p>
+Recovery Earth develops environmental technology designed to restore ecosystems,
+protect biodiversity, and modernize conservation infrastructure.
+</p>
+
+<!-- Email Capture -->
+
+<div class="section">
+
+<h2>Stay Updated</h2>
+
+<p>Join our early supporters list to receive updates on projects and launches.</p>
+
+<form action="https://formspree.io/f/yourID" method="POST">
+
+<div class="email-box">
+<input type="email" name="email" placeholder="Enter your email" required>
+<button type="submit">Get Updates</button>
+</div>
+
+</form>
+
+</div>
+
+<!-- AI Environmental Tech -->
+
+<div class="section">
+
+<h2>AI Environmental Technology</h2>
+
+<p>
+We are building intelligent monitoring systems that combine sensors,
+computer vision, and automation to improve environmental management.
+These systems allow real-time understanding of ecosystems and help
+governments and organizations respond faster to environmental change.
+</p>
+
+</div>
+
+<!-- Fish Conservation -->
+
+<div class="section">
+
+<h2>Fish Conservation Systems</h2>
+
+<p>
+Our aquatic technology focuses on solving one of the biggest problems
+in freshwater ecosystems: protecting native fish while controlling
+invasive species. We are developing smart fish passage systems that
+use sensors and AI recognition to guide wildlife safely through water
+infrastructure while removing harmful invasive species.
+</p>
+
+</div>
+
+<!-- Investor Section -->
+
+<div class="section">
+
+<h2>Investor & Partner Interest</h2>
+
+<p>
+Recovery Earth is currently in early development. We welcome
+conversations with mission-aligned investors, conservation agencies,
+and technology partners interested in accelerating environmental recovery.
+</p>
+
+<form action="https://formspree.io/f/yourID" method="POST">
+
+<div class="email-box">
+<input type="email" name="email" placeholder="Investor email" required>
+<button type="submit">Request Information</button>
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+<footer>
+
+© 2026 Recovery Earth  
+Environmental Technology for a Regenerating Planet
+
+</footer>
+
+</body>
+</html>

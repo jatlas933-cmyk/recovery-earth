@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recovery Earth — Environmental Technology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green:    #2ec27e;
+    --green-dk: #1a7a4f;
+    --green-glow: rgba(46,194,126,0.18);
+    --bg:       #060e0c;
+    --bg2:      #0c1c17;
+    --bg3:      #0f2318;
+    --text:     #e8f0ec;
+    --muted:    rgba(232,240,236,0.55);
+    --border:   rgba(46,194,126,0.15);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    background: rgba(6,14,12,0.7);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--green); }
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--green); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 140px 24px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* background orbs */
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+  }
+  .orb-1 {
+    width: 600px; height: 600px;
+    top: -180px; right: -180px;
+    background: radial-gradient(circle, rgba(46,194,126,0.18) 0%, transparent 70%);
+    animation: drift 18s ease-in-out infinite alternate;
+  }
+  .orb-2 {
+    width: 400px; height: 400px;
+    bottom: -120px; left: -100px;
+    background: radial-gradient(circle, rgba(46,194,126,0.10) 0%, transparent 70%);
+    animation: drift 24s ease-in-out infinite alternate-reverse;
+  }
+  @keyframes drift {
+    0%   { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(30px, 20px) scale(1.06); }
+  }
+
+  /* grid texture */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(46,194,126,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(46,194,126,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, rgba(0,0,0,0.5) 0%, transparent 75%);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 8vw, 90px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -1px;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+  h1 em {
+    font-style: normal;
+    color: var(--green);
+  }
+  .hero-sub {
+    font-size: clamp(17px, 2vw, 20px);
+    color: var(--muted);
+    max-width: 560px;
+    margin: 0 auto 48px;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+  .hero-ctas {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+  .btn-primary {
+    padding: 15px 32px;
+    background: var(--green);
+    color: #040a07;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: #3ad48e; transform: translateY(-2px); }
+  .btn-ghost {
+    padding: 15px 32px;
+    background: transparent;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+  .btn-ghost:hover { border-color: var(--green); color: var(--green); transform: translateY(-2px); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── STAT BAR ── */
+  .stat-bar {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 36px 24px;
+  }
+  .stat-inner {
+    max-width: 900px;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 24px;
+    text-align: center;
+  }
+  .stat-item {}
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--green);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    max-width: 1040px;
+    margin: auto;
+    padding: 100px 24px;
+  }
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 14px;
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+  .lead {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 640px;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* ── CARDS ── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 52px;
+  }
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 36px 30px;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--green), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .card:hover { border-color: rgba(46,194,126,0.35); transform: translateY(-4px); }
+  .card:hover::before { opacity: 1; }
+  .card-icon {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+  .card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .card p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    max-width: 1040px;
+    margin: 0 auto;
+  }
+
+  /* ── FISH / FEATURE SECTION ── */
+  .feature-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  @media(max-width: 720px) {
+    .feature-layout { grid-template-columns: 1fr; }
+  }
+  .feature-visual {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    aspect-ratio: 4/3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  /* animated scan line */
+  .feature-visual::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--green), transparent);
+    animation: scan 3s ease-in-out infinite;
+  }
+  @keyframes scan {
+    0%   { top: 10%; opacity: 0; }
+    20%  { opacity: 1; }
+    80%  { opacity: 1; }
+    100% { top: 90%; opacity: 0; }
+  }
+  .feature-svg {
+    width: 80%;
+    opacity: 0.7;
+  }
+  .pill-list {
+    list-style: none;
+    margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .pill-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--muted);
+  }
+  .pill-list li::before {
+    content: '';
+    flex-shrink: 0;
+    width: 6px; height: 6px;
+    margin-top: 8px;
+    border-radius: 50%;
+    background: var(--green);
+  }
+
+  /* ── EMAIL CAPTURE ── */
+  .capture-section {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 80px 24px;
+    text-align: center;
+  }
+  .capture-inner {
+    max-width: 560px;
+    margin: auto;
+  }
+  .capture-inner h2 { margin-bottom: 14px; }
+  .capture-inner p { color: var(--muted); margin-bottom: 32px; font-size: 17px; font-weight: 300; }
+  .email-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .email-row input {
+    flex: 1 1 220px;
+    padding: 15px 18px;
+    font-size: 15px;
+    font-family: 'DM Sans', sans-serif;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .email-row input::placeholder { color: var(--muted); }
+  .email-row input:focus { border-color: var(--green); }
+  .email-row button {
+    padding: 15px 28px;
+    background: var(--green);
+    color: #040a07;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .email-row button:hover { background: #3ad48e; }
+
+  /* ── INVESTOR ── */
+  .investor-box {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 60px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .investor-box::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at top center, rgba(46,194,126,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .investor-box h2 { margin-bottom: 16px; }
+  .investor-box p { color: var(--muted); max-width: 520px; margin: 0 auto 36px; font-size: 17px; font-weight: 300; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 24px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  footer .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  /* ── RESPONSIVE NAV ── */
+  @media(max-width: 640px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Recovery<span>.</span>Earth</a>
+  <ul class="nav-links">
+    <li><a href="#technology">Technology</a></li>
+    <li><a href="#fish">Fish AI</a></li>
+    <li><a href="#investors">Partners</a></li>
+    <li><a href="recovery-waters-foundation.html" style="color:var(--green);border:1px solid var(--border);padding:6px 14px;border-radius:20px;">Foundation ↗</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <p class="hero-eyebrow">Environmental Technology Venture</p>
+  <h1>Helping the Planet<br><em>Recover</em></h1>
+  <p class="hero-sub">Recovery Earth builds intelligent monitoring and conservation systems that restore aquatic ecosystems and protect biodiversity.</p>
+  <div class="hero-ctas">
+    <a href="#updates" class="btn-primary">Stay Updated</a>
+    <a href="#investors" class="btn-ghost">Partner With Us</a>
+  </div>
+</div>
+
+<!-- STAT BAR -->
+<div class="stat-bar">
+  <div class="stat-inner">
+    <div class="stat-item">
+      <div class="stat-num">44</div>
+      <div class="stat-label">Fish Species in AI Model</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">12</div>
+      <div class="stat-label">Invasive Species Tracked</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">32</div>
+      <div class="stat-label">Native Species Protected</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">1</div>
+      <div class="stat-label">Active PWA Deployment</div>
+    </div>
+  </div>
+</div>
+
+<!-- TECHNOLOGY -->
+<section id="technology">
+  <p class="section-label">What We Build</p>
+  <h2>AI-Powered Environmental Infrastructure</h2>
+  <p class="lead">We develop intelligent monitoring systems that combine computer vision, sensors, and automation to give ecosystems a voice — and give conservationists the tools to respond.</p>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon">🔬</div>
+      <h3>Computer Vision</h3>
+      <p>Real-time species identification using deep learning models trained on native and invasive aquatic wildlife across Florida's waterways.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📡</div>
+      <h3>Citizen Reporting</h3>
+      <p>Mobile-first progressive web apps that let everyday Floridians report invasive sightings, upload photos, and contribute to ecosystem data.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🏛️</div>
+      <h3>Conservation Infrastructure</h3>
+      <p>Smart fish passage systems that guide native species safely through water infrastructure while autonomously filtering out invasive threats.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- FISH AI -->
+<section id="fish">
+  <div class="feature-layout">
+    <div>
+      <p class="section-label">Flagship Project</p>
+      <h2>Florida Waterways Guardian</h2>
+      <p class="lead">Our AI classifier identifies fish species in real time — distinguishing native wildlife from invasive threats like lionfish, Mayan cichlids, and oscar fish.</p>
+      <ul class="pill-list">
+        <li>44-class YOLOv8 model in active training</li>
+        <li>Deployable offline via progressive web app</li>
+        <li>English / Spanish bilingual interface</li>
+        <li>Integrated citizen reporting with live data dashboard</li>
+        <li>Built for schools, anglers, and agency partners</li>
+      </ul>
+    </div>
+    <div class="feature-visual">
+      <!-- Simple fish SVG illustration -->
+      <svg class="feature-svg" viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- scan grid -->
+        <line x1="0" y1="60" x2="320" y2="60" stroke="rgba(46,194,126,0.12)" stroke-width="1"/>
+        <line x1="0" y1="120" x2="320" y2="120" stroke="rgba(46,194,126,0.12)" stroke-width="1"/>
+        <line x1="0" y1="180" x2="320" y2="180" stroke="rgba(46,194,126,0.12)" stroke-width="1"/>
+        <line x1="80" y1="0" x2="80" y2="240" stroke="rgba(46,194,126,0.12)" stroke-width="1"/>
+        <line x1="160" y1="0" x2="160" y2="240" stroke="rgba(46,194,126,0.12)" stroke-width="1"/>
+        <line x1="240" y1="0" x2="240" y2="240" stroke="rgba(46,194,126,0.12)" stroke-width="1"/>
+        <!-- fish body -->
+        <ellipse cx="155" cy="120" rx="80" ry="38" fill="rgba(46,194,126,0.15)" stroke="#2ec27e" stroke-width="1.5"/>
+        <!-- tail -->
+        <path d="M75 120 L40 90 L40 150 Z" fill="rgba(46,194,126,0.10)" stroke="#2ec27e" stroke-width="1.5"/>
+        <!-- fin top -->
+        <path d="M130 82 Q155 60 175 82" fill="rgba(46,194,126,0.12)" stroke="#2ec27e" stroke-width="1.2"/>
+        <!-- eye -->
+        <circle cx="210" cy="115" r="6" fill="rgba(46,194,126,0.2)" stroke="#2ec27e" stroke-width="1.5"/>
+        <circle cx="211" cy="114" r="2" fill="#2ec27e"/>
+        <!-- target reticle -->
+        <rect x="100" y="80" width="110" height="80" rx="4" stroke="#2ec27e" stroke-width="1" stroke-dasharray="6 4" fill="none"/>
+        <line x1="155" y1="74" x2="155" y2="86" stroke="#2ec27e" stroke-width="1"/>
+        <line x1="155" y1="154" x2="155" y2="166" stroke="#2ec27e" stroke-width="1"/>
+        <line x1="94" y1="120" x2="106" y2="120" stroke="#2ec27e" stroke-width="1"/>
+        <line x1="204" y1="120" x2="216" y2="120" stroke="#2ec27e" stroke-width="1"/>
+        <!-- label -->
+        <rect x="104" y="168" width="142" height="20" rx="3" fill="rgba(46,194,126,0.15)"/>
+        <text x="175" y="182" text-anchor="middle" font-family="monospace" font-size="10" fill="#2ec27e">LARGEMOUTH BASS 94.2%</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- EMAIL CAPTURE -->
+<div class="capture-section" id="updates">
+  <div class="capture-inner">
+    <p class="section-label" style="text-align:center">Stay in the Loop</p>
+    <h2>Join Our Early Supporters</h2>
+    <p>Receive updates on project milestones, grant announcements, and opportunities to get involved.</p>
+    <form action="https://formspree.io/f/xbdzkolk" method="POST">
+      <div class="email-row">
+        <input type="email" name="email" placeholder="Your email address" required>
+        <button type="submit">Get Updates</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- INVESTORS -->
+<section id="investors">
+  <div class="investor-box">
+    <p class="section-label">Partners & Investors</p>
+    <h2>Build the Future With Us</h2>
+    <p>Recovery Earth is in active early development. We welcome mission-aligned investors, conservation agencies, water management districts, and technology partners ready to accelerate environmental recovery.</p>
+    <form action="https://formspree.io/f/yourID" method="POST">
+      <div class="email-row" style="justify-content:center;">
+        <input type="email" name="email" placeholder="Your email" required style="max-width:280px;">
+        <button type="submit">Request Info</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Recovery Earth</div>
+  <p>Environmental Technology for a Regenerating Planet</p>
+  <p style="margin-top:10px">© 2026 Recovery Earth LLC — New Smyrna Beach, Florida</p>
+</footer>
+
+</body>
+</html>

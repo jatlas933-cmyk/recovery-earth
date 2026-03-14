@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recovery Waters Foundation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue:      #3ea6c8;
+    --blue-dk:   #1f6e8c;
+    --blue-glow: rgba(62,166,200,0.18);
+    --green:     #2ec27e;
+    --bg:        #060c0f;
+    --bg2:       #0a1820;
+    --bg3:       #0d1f2d;
+    --text:      #e4eef4;
+    --muted:     rgba(228,238,244,0.55);
+    --border:    rgba(62,166,200,0.15);
+    --border-g:  rgba(46,194,126,0.15);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    background: rgba(6,12,15,0.75);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+    line-height: 1.2;
+  }
+  .nav-logo span { color: var(--blue); }
+  .nav-sub {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    display: block;
+    margin-top: 2px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--blue); }
+  .nav-pill {
+    color: var(--green) !important;
+    border: 1px solid var(--border-g) !important;
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+  .nav-pill:hover { background: rgba(46,194,126,0.08); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 140px 24px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    pointer-events: none;
+  }
+  .orb-1 {
+    width: 700px; height: 700px;
+    top: -250px; left: -200px;
+    background: radial-gradient(circle, rgba(62,166,200,0.14) 0%, transparent 70%);
+    animation: drift 22s ease-in-out infinite alternate;
+  }
+  .orb-2 {
+    width: 450px; height: 450px;
+    bottom: -150px; right: -100px;
+    background: radial-gradient(circle, rgba(46,194,126,0.08) 0%, transparent 70%);
+    animation: drift 28s ease-in-out infinite alternate-reverse;
+  }
+  @keyframes drift {
+    0%   { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(25px, 18px) scale(1.05); }
+  }
+  /* ripple texture */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-radial-gradient(
+      ellipse at 50% 60%,
+      rgba(62,166,200,0.03) 0px,
+      rgba(62,166,200,0.03) 1px,
+      transparent 1px,
+      transparent 40px
+    );
+    mask-image: radial-gradient(ellipse at center, rgba(0,0,0,0.6) 0%, transparent 75%);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 7.5vw, 86px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -1px;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--blue);
+  }
+  .hero-sub {
+    font-size: clamp(17px, 2vw, 20px);
+    color: var(--muted);
+    max-width: 580px;
+    margin: 0 auto 48px;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+  .hero-ctas {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+  .btn-primary {
+    padding: 15px 32px;
+    background: var(--blue);
+    color: #040a0d;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: #55bbd8; transform: translateY(-2px); }
+  .btn-ghost {
+    padding: 15px 32px;
+    background: transparent;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s, transform 0.15s;
+  }
+  .btn-ghost:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── MISSION BAND ── */
+  .mission-band {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 52px 24px;
+    text-align: center;
+  }
+  .mission-inner {
+    max-width: 720px;
+    margin: auto;
+  }
+  .mission-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 18px;
+  }
+  .mission-text {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 2.5vw, 26px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.55;
+    opacity: 0.9;
+  }
+  .mission-text strong {
+    font-style: normal;
+    font-weight: 700;
+    color: var(--blue);
+  }
+
+  /* ── SHARED SECTION STYLES ── */
+  section {
+    max-width: 1040px;
+    margin: auto;
+    padding: 100px 24px;
+  }
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 14px;
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(30px, 4vw, 46px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .lead {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 640px;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    max-width: 1040px;
+    margin: 0 auto;
+  }
+
+  /* ── PROGRAM CARDS ── */
+  .program-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 20px;
+    margin-top: 52px;
+  }
+  .program-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 36px 30px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .program-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--blue), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .program-card:hover { border-color: rgba(62,166,200,0.35); transform: translateY(-4px); }
+  .program-card:hover::after { opacity: 1; }
+  .program-icon {
+    font-size: 32px;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .program-card p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-top: 8px;
+  }
+  .program-tag {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--blue);
+    background: rgba(62,166,200,0.1);
+    border: 1px solid rgba(62,166,200,0.2);
+    border-radius: 20px;
+    padding: 3px 10px;
+    margin-bottom: 14px;
+  }
+
+  /* ── VOLUNTEER SECTION ── */
+  .volunteer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 44px;
+  }
+  .vol-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 28px 24px;
+    transition: border-color 0.2s;
+  }
+  .vol-card:hover { border-color: rgba(62,166,200,0.3); }
+  .vol-card h4 {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .vol-card p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .vol-icon { font-size: 22px; margin-bottom: 12px; }
+
+  /* ── GRANT / NONPROFIT BAND ── */
+  .nonprofit-band {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 80px 24px;
+  }
+  .nonprofit-inner {
+    max-width: 900px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  @media(max-width: 700px) { .nonprofit-inner { grid-template-columns: 1fr; gap: 36px; } }
+  .nonprofit-inner h2 { margin-bottom: 16px; }
+  .nonprofit-inner p { color: var(--muted); font-size: 16px; font-weight: 300; line-height: 1.7; margin-bottom: 14px; }
+  .fact-list {
+    list-style: none;
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .fact-list li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 15px;
+    color: var(--muted);
+  }
+  .fact-list li::before {
+    content: '';
+    flex-shrink: 0;
+    width: 6px; height: 6px;
+    margin-top: 8px;
+    border-radius: 50%;
+    background: var(--blue);
+  }
+  .grant-badges {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .grant-badge {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .grant-badge-icon { font-size: 24px; flex-shrink: 0; }
+  .grant-badge-text {}
+  .grant-badge-name { font-size: 14px; font-weight: 500; color: var(--text); }
+  .grant-badge-desc { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  /* ── DONATE / EMAIL ── */
+  .capture-section {
+    background: var(--bg3);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 80px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .capture-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center top, rgba(62,166,200,0.07) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .capture-inner { max-width: 560px; margin: auto; position: relative; }
+  .capture-inner h2 { margin-bottom: 14px; }
+  .capture-inner p { color: var(--muted); margin-bottom: 32px; font-size: 17px; font-weight: 300; }
+  .email-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .email-row input {
+    flex: 1 1 220px;
+    padding: 15px 18px;
+    font-size: 15px;
+    font-family: 'DM Sans', sans-serif;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .email-row input::placeholder { color: var(--muted); }
+  .email-row input:focus { border-color: var(--blue); }
+  .email-row button {
+    padding: 15px 28px;
+    background: var(--blue);
+    color: #040a0d;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .email-row button:hover { background: #55bbd8; }
+
+  /* ── SISTER ORG BANNER ── */
+  .sister-banner {
+    background: var(--bg2);
+    border: 1px solid var(--border-g);
+    border-radius: 12px;
+    padding: 32px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    max-width: 1040px;
+    margin: 0 auto;
+  }
+  .sister-banner-text {}
+  .sister-banner-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 6px;
+  }
+  .sister-banner-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .sister-banner-desc {
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .btn-green {
+    padding: 13px 28px;
+    background: transparent;
+    color: var(--green);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid var(--border-g);
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.2s, transform 0.15s;
+    flex-shrink: 0;
+  }
+  .btn-green:hover { background: rgba(46,194,126,0.08); transform: translateY(-2px); }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 24px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  @media(max-width: 640px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .sister-banner { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    Recovery Waters<span> Foundation</span>
+    <span class="nav-sub">501(c)(3) · In Formation</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#nonprofit">About</a></li>
+    <li><a href="#volunteer">Volunteer</a></li>
+    <li><a href="#donate">Donate</a></li>
+    <li><a href="recovery-earth.html" class="nav-pill">← LLC Site</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <p class="hero-eyebrow">Nonprofit Conservation · Florida Waterways</p>
+  <h1>Restoring What<br>the Water <em>Remembers</em></h1>
+  <p class="hero-sub">Recovery Waters Foundation educates communities, removes invasive species, and restores the aquatic ecosystems that Florida depends on.</p>
+  <div class="hero-ctas">
+    <a href="#donate" class="btn-primary">Support Our Work</a>
+    <a href="#volunteer" class="btn-ghost">Get Involved</a>
+  </div>
+</div>
+
+<!-- MISSION BAND -->
+<div class="mission-band">
+  <div class="mission-inner">
+    <p class="mission-label">Our Mission</p>
+    <p class="mission-text">
+      To protect and restore Florida's freshwater ecosystems through
+      <strong>community education</strong>, <strong>citizen science</strong>,
+      invasive species removal, mussel conservation, and the development of
+      water filtration technology — for the communities and wildlife that depend on clean water.
+    </p>
+  </div>
+</div>
+
+<!-- PROGRAMS -->
+<section id="programs">
+  <p class="section-label">Foundation Programs</p>
+  <h2>Five Pillars of Restoration</h2>
+  <p class="lead">Every program targets a real, measurable threat to Florida's waterways — and creates a direct path for communities to be part of the solution.</p>
+
+  <div class="program-grid">
+
+    <div class="program-card">
+      <span class="program-icon">🎓</span>
+      <span class="program-tag">Education</span>
+      <h3>River Guardian Program</h3>
+      <p>AI-powered fish identification education for students, teachers, and community members. Florida Waterways Guardian app deployed in schools with a bilingual curriculum built around citizen science and native species stewardship.</p>
+    </div>
+
+    <div class="program-card">
+      <span class="program-icon">🐟</span>
+      <span class="program-tag">Removal</span>
+      <h3>Invasive Fish Removal</h3>
+      <p>Organized removal events targeting lionfish, oscar fish, Mayan cichlids, suckermouth catfish, and other non-native species that threaten native fish populations and aquatic food webs.</p>
+    </div>
+
+    <div class="program-card">
+      <span class="program-icon">🐚</span>
+      <span class="program-tag">Conservation</span>
+      <h3>Freshwater Mussel Conservation</h3>
+      <p>Florida is home to some of the most biodiverse freshwater mussel populations in the world — and some of the most endangered. We support habitat protection, propagation research, and reintroduction efforts.</p>
+    </div>
+
+    <div class="program-card">
+      <span class="program-icon">💧</span>
+      <span class="program-tag">Technology</span>
+      <h3>Water Filtration Technology</h3>
+      <p>Developing low-cost, field-deployable water filtration and purification systems designed for use in Florida's springs, rivers, and rural waterways where infrastructure is limited.</p>
+    </div>
+
+    <div class="program-card">
+      <span class="program-icon">🌿</span>
+      <span class="program-tag">Community</span>
+      <h3>Waterway Cleanup</h3>
+      <p>Coordinated shoreline, riverbank, and underwater cleanup events that engage volunteers, collect water quality data, and restore native shoreline habitat through replanting programs.</p>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- NONPROFIT STATUS / GRANT INFO -->
+<div class="nonprofit-band" id="nonprofit">
+  <div class="nonprofit-inner">
+    <div>
+      <p class="section-label">About the Foundation</p>
+      <h2>Built for the Long Game</h2>
+      <p>Recovery Waters Foundation is a nonprofit in formation, structured to pursue federal and state environmental education grants, accept tax-deductible donations, and build lasting institutional partnerships with Florida water management districts, schools, and conservation agencies.</p>
+      <ul class="fact-list">
+        <li>Companion organization to Recovery Earth LLC</li>
+        <li>501(c)(3) application in process</li>
+        <li>Environmental justice focus — Title I school outreach</li>
+        <li>Targeting EPA Environmental Education grant funding</li>
+        <li>Advisory board in active formation</li>
+      </ul>
+    </div>
+    <div class="grant-badges">
+      <div class="grant-badge">
+        <div class="grant-badge-icon">🏛️</div>
+        <div class="grant-badge-text">
+          <div class="grant-badge-name">EPA Environmental Education Grant</div>
+          <div class="grant-badge-desc">Primary funding target · Application in preparation</div>
+        </div>
+      </div>
+      <div class="grant-badge">
+        <div class="grant-badge-icon">🌊</div>
+        <div class="grant-badge-text">
+          <div class="grant-badge-name">NOAA B-WET Gulf Region</div>
+          <div class="grant-badge-desc">Strong program fit · Target: Fall 2026</div>
+        </div>
+      </div>
+      <div class="grant-badge">
+        <div class="grant-badge-icon">🏫</div>
+        <div class="grant-badge-text">
+          <div class="grant-badge-name">Teacher Professional Development</div>
+          <div class="grant-badge-desc">River Guardian curriculum · Title I focus</div>
+        </div>
+      </div>
+      <div class="grant-badge">
+        <div class="grant-badge-icon">🤝</div>
+        <div class="grant-badge-text">
+          <div class="grant-badge-name">Water Management Districts</div>
+          <div class="grant-badge-desc">Partnership outreach underway · SJRWMD, SWFWMD</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VOLUNTEER -->
+<section id="volunteer">
+  <p class="section-label">Get Involved</p>
+  <h2>Every Waterway Needs a Guardian</h2>
+  <p class="lead">We're building a volunteer network across Florida. Whether you're an educator, an angler, a diver, or just someone who cares about clean water — there's a role for you.</p>
+  <div class="volunteer-grid">
+    <div class="vol-card">
+      <div class="vol-icon">🎣</div>
+      <h4>Anglers & Divers</h4>
+      <p>Join removal events, report invasive sightings, and help document species populations using the Guardian app.</p>
+    </div>
+    <div class="vol-card">
+      <div class="vol-icon">📚</div>
+      <h4>Educators</h4>
+      <p>Bring the River Guardian curriculum into your classroom. We provide training, materials, and ongoing support.</p>
+    </div>
+    <div class="vol-card">
+      <div class="vol-icon">🔬</div>
+      <h4>Researchers & Scientists</h4>
+      <p>Contribute to mussel conservation, water quality monitoring, or AI model development and validation.</p>
+    </div>
+    <div class="vol-card">
+      <div class="vol-icon">🌱</div>
+      <h4>Community Volunteers</h4>
+      <p>Join a cleanup event, help restore native shoreline plants, or spread the word about Florida's freshwater ecosystems.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- DONATE / EMAIL -->
+<div class="capture-section" id="donate">
+  <div class="capture-inner">
+    <p class="section-label" style="text-align:center">Support the Foundation</p>
+    <h2>Help Us Restore Florida's Waters</h2>
+    <p>We're in early formation. Join our list to be notified when donations open and to receive updates on our programs and grant progress.</p>
+    <form action="https://formspree.io/f/xbdzkolk" method="POST">
+      <div class="email-row">
+        <input type="email" name="email" placeholder="Your email address" required>
+        <button type="submit">Stay Informed</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- SISTER ORG BANNER -->
+<section style="padding-top:60px; padding-bottom:80px;">
+  <div class="sister-banner">
+    <div class="sister-banner-text">
+      <div class="sister-banner-label">Sister Organization</div>
+      <div class="sister-banner-title">Recovery Earth LLC</div>
+      <div class="sister-banner-desc">The technology venture building the AI tools that power our conservation work.</div>
+    </div>
+    <a href="recovery-earth.html" class="btn-green">Visit Recovery Earth →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Recovery Waters Foundation</div>
+  <p>501(c)(3) Nonprofit · In Formation · New Smyrna Beach, Florida</p>
+  <p style="margin-top:10px">© 2026 Recovery Waters Foundation · <a href="recovery-earth.html" style="color:var(--blue);text-decoration:none;">Recovery Earth LLC ↗</a></p>
+</footer>
+
+</body>
+</html>

@@ -1,622 +1,617 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Recovery Earth — Environmental Technology</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Recovery Earth</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-    --green:    #2ec27e;
-    --green-dk: #1a7a4f;
-    --green-glow: rgba(46,194,126,0.18);
-    --bg:       #060e0c;
-    --bg2:      #0c1c17;
-    --bg3:      #0f2318;
-    --text:     #e8f0ec;
-    --muted:    rgba(232,240,236,0.55);
-    --border:   rgba(46,194,126,0.15);
-  }
+:root {
+  --green: #2ec27e;
+  --green-dark: #1a7a4e;
+  --green-dim: #26a96a;
+  --bg: #081411;
+  --bg2: #0d1e19;
+  --text: #e8f5f0;
+  --muted: rgba(232,245,240,0.65);
+}
 
-  html { scroll-behavior: smooth; }
+*, *::before, *::after { box-sizing: border-box; }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    overflow-x: hidden;
-    line-height: 1.6;
-  }
+body {
+  margin: 0;
+  font-family: 'Source Sans 3', sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  overflow-x: hidden;
+}
 
-  /* ── NAV ── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 48px;
-    background: rgba(6,14,12,0.7);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    color: var(--text);
-    text-decoration: none;
-  }
-  .nav-logo span { color: var(--green); }
-  .nav-links {
-    display: flex;
-    gap: 36px;
-    list-style: none;
-  }
-  .nav-links a {
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.3px;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--green); }
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(8,20,17,0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(46,194,126,0.15);
+  padding: 0 20px;
+}
 
-  /* ── HERO ── */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 140px 24px 80px;
-    position: relative;
-    overflow: hidden;
-  }
+.nav-inner {
+  max-width: 1000px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+}
 
-  /* background orbs */
-  .orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    pointer-events: none;
-  }
-  .orb-1 {
-    width: 600px; height: 600px;
-    top: -180px; right: -180px;
-    background: radial-gradient(circle, rgba(46,194,126,0.18) 0%, transparent 70%);
-    animation: drift 18s ease-in-out infinite alternate;
-  }
-  .orb-2 {
-    width: 400px; height: 400px;
-    bottom: -120px; left: -100px;
-    background: radial-gradient(circle, rgba(46,194,126,0.10) 0%, transparent 70%);
-    animation: drift 24s ease-in-out infinite alternate-reverse;
-  }
-  @keyframes drift {
-    0%   { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(30px, 20px) scale(1.06); }
-  }
+.nav-logo {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--green);
+  letter-spacing: 1px;
+  text-decoration: none;
+}
 
-  /* grid texture */
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(46,194,126,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(46,194,126,0.04) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse at center, rgba(0,0,0,0.5) 0%, transparent 75%);
-  }
+.nav-links {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
 
-  .hero-eyebrow {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--green);
-    margin-bottom: 20px;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.2s forwards;
-  }
-  h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(52px, 8vw, 90px);
-    font-weight: 900;
-    line-height: 1.05;
-    letter-spacing: -1px;
-    margin-bottom: 24px;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.4s forwards;
-  }
-  h1 em {
-    font-style: normal;
-    color: var(--green);
-  }
-  .hero-sub {
-    font-size: clamp(17px, 2vw, 20px);
-    color: var(--muted);
-    max-width: 560px;
-    margin: 0 auto 48px;
-    font-weight: 300;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.6s forwards;
-  }
-  .hero-ctas {
-    display: flex;
-    gap: 14px;
-    flex-wrap: wrap;
-    justify-content: center;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.8s forwards;
-  }
-  .btn-primary {
-    padding: 15px 32px;
-    background: var(--green);
-    color: #040a07;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 500;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background 0.2s, transform 0.15s;
-  }
-  .btn-primary:hover { background: #3ad48e; transform: translateY(-2px); }
-  .btn-ghost {
-    padding: 15px 32px;
-    background: transparent;
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 400;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: border-color 0.2s, transform 0.15s;
-  }
-  .btn-ghost:hover { border-color: var(--green); color: var(--green); transform: translateY(-2px); }
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(22px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+.nav-links a:hover {
+  color: var(--green);
+  background: rgba(46,194,126,0.08);
+}
 
-  /* ── STAT BAR ── */
-  .stat-bar {
-    background: var(--bg2);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 36px 24px;
-  }
-  .stat-inner {
-    max-width: 900px;
-    margin: auto;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 24px;
-    text-align: center;
-  }
-  .stat-item {}
-  .stat-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 38px;
-    font-weight: 700;
-    color: var(--green);
-    line-height: 1;
-  }
-  .stat-label {
-    font-size: 12px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 6px;
-  }
+/* ── HERO ── */
+.earth {
+  position: fixed;
+  top: -200px;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle at 30% 30%, #2ec27e, #0c2e24);
+  border-radius: 50%;
+  opacity: .12;
+  animation: spin 60s linear infinite;
+  pointer-events: none;
+}
 
-  /* ── SECTIONS ── */
-  section {
-    max-width: 1040px;
-    margin: auto;
-    padding: 100px 24px;
-  }
-  .section-label {
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--green);
-    margin-bottom: 14px;
-  }
-  h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(32px, 4vw, 48px);
-    font-weight: 700;
-    line-height: 1.15;
-    margin-bottom: 20px;
-  }
-  .lead {
-    font-size: 18px;
-    color: var(--muted);
-    max-width: 640px;
-    font-weight: 300;
-    line-height: 1.7;
-  }
+@keyframes spin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
-  /* ── CARDS ── */
-  .card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-    margin-top: 52px;
-  }
-  .card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 36px 30px;
-    transition: border-color 0.2s, transform 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
-  .card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--green), transparent);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  .card:hover { border-color: rgba(46,194,126,0.35); transform: translateY(-4px); }
-  .card:hover::before { opacity: 1; }
-  .card-icon {
-    font-size: 28px;
-    margin-bottom: 16px;
-  }
-  .card h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 12px;
-  }
-  .card p {
-    font-size: 15px;
-    color: var(--muted);
-    line-height: 1.65;
-  }
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 140px 24px 80px;
+}
 
-  /* ── DIVIDER ── */
-  .divider {
-    border: none;
-    border-top: 1px solid var(--border);
-    max-width: 1040px;
-    margin: 0 auto;
-  }
+h1 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(42px, 8vw, 72px);
+  letter-spacing: 3px;
+  margin: 0 0 10px;
+  line-height: 1;
+}
 
-  /* ── FISH / FEATURE SECTION ── */
-  .feature-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-  }
-  @media(max-width: 720px) {
-    .feature-layout { grid-template-columns: 1fr; }
-  }
-  .feature-visual {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    aspect-ratio: 4/3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-  }
-  /* animated scan line */
-  .feature-visual::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--green), transparent);
-    animation: scan 3s ease-in-out infinite;
-  }
-  @keyframes scan {
-    0%   { top: 10%; opacity: 0; }
-    20%  { opacity: 1; }
-    80%  { opacity: 1; }
-    100% { top: 90%; opacity: 0; }
-  }
-  .feature-svg {
-    width: 80%;
-    opacity: 0.7;
-  }
-  .pill-list {
-    list-style: none;
-    margin-top: 28px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .pill-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    font-size: 15px;
-    color: var(--muted);
-  }
-  .pill-list li::before {
-    content: '';
-    flex-shrink: 0;
-    width: 6px; height: 6px;
-    margin-top: 8px;
-    border-radius: 50%;
-    background: var(--green);
-  }
+h2 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(26px, 5vw, 38px);
+  margin: 0 0 16px;
+  color: var(--green);
+  letter-spacing: 1px;
+}
 
-  /* ── EMAIL CAPTURE ── */
-  .capture-section {
-    background: var(--bg2);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 80px 24px;
-    text-align: center;
-  }
-  .capture-inner {
-    max-width: 560px;
-    margin: auto;
-  }
-  .capture-inner h2 { margin-bottom: 14px; }
-  .capture-inner p { color: var(--muted); margin-bottom: 32px; font-size: 17px; font-weight: 300; }
-  .email-row {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .email-row input {
-    flex: 1 1 220px;
-    padding: 15px 18px;
-    font-size: 15px;
-    font-family: 'DM Sans', sans-serif;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    color: var(--text);
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  .email-row input::placeholder { color: var(--muted); }
-  .email-row input:focus { border-color: var(--green); }
-  .email-row button {
-    padding: 15px 28px;
-    background: var(--green);
-    color: #040a07;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 500;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  .email-row button:hover { background: #3ad48e; }
+h3 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 22px;
+  color: var(--green);
+  margin: 0 0 8px;
+}
 
-  /* ── INVESTOR ── */
-  .investor-box {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 60px 48px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .investor-box::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at top center, rgba(46,194,126,0.08) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .investor-box h2 { margin-bottom: 16px; }
-  .investor-box p { color: var(--muted); max-width: 520px; margin: 0 auto 36px; font-size: 17px; font-weight: 300; }
+p {
+  font-size: 17px;
+  opacity: .88;
+  line-height: 1.7;
+  margin: 0 0 14px;
+}
 
-  /* ── FOOTER ── */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 40px 24px;
-    text-align: center;
-    color: var(--muted);
-    font-size: 13px;
-  }
-  footer .footer-brand {
-    font-family: 'Playfair Display', serif;
-    font-size: 18px;
-    color: var(--text);
-    margin-bottom: 10px;
-  }
+.tagline {
+  font-size: clamp(16px, 3vw, 22px);
+  margin-bottom: 36px;
+  opacity: .85;
+  font-weight: 300;
+}
 
-  /* ── RESPONSIVE NAV ── */
-  @media(max-width: 640px) {
-    nav { padding: 16px 20px; }
-    .nav-links { display: none; }
-  }
+/* ── SECTIONS ── */
+.section {
+  margin-top: 80px;
+  text-align: center;
+}
+
+.section-left {
+  margin-top: 80px;
+  text-align: left;
+}
+
+/* ── PROJECT CARDS ── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-top: 36px;
+  text-align: left;
+}
+
+.card {
+  background: var(--bg2);
+  border: 1px solid rgba(46,194,126,0.18);
+  border-radius: 14px;
+  padding: 28px 30px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--green), transparent);
+}
+
+.card:hover {
+  border-color: rgba(46,194,126,0.4);
+}
+
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+}
+
+.badge-flagship {
+  background: rgba(46,194,126,0.2);
+  color: var(--green);
+  border: 1px solid rgba(46,194,126,0.4);
+}
+
+.badge-active {
+  background: rgba(46,194,126,0.1);
+  color: rgba(46,194,126,0.8);
+  border: 1px solid rgba(46,194,126,0.25);
+}
+
+.badge-future {
+  background: rgba(100,150,200,0.12);
+  color: rgba(150,200,255,0.8);
+  border: 1px solid rgba(100,150,200,0.25);
+}
+
+/* ── EMAIL / FORMS ── */
+.email-box {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+input[type="email"], input[type="text"], textarea {
+  padding: 13px 16px;
+  font-size: 15px;
+  font-family: 'Source Sans 3', sans-serif;
+  border-radius: 8px;
+  border: 1px solid rgba(46,194,126,0.25);
+  background: rgba(255,255,255,0.05);
+  color: white;
+  width: 260px;
+}
+
+textarea {
+  width: 100%;
+  max-width: 560px;
+  resize: vertical;
+  min-height: 110px;
+}
+
+input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.35); }
+
+button {
+  padding: 13px 26px;
+  font-size: 15px;
+  font-family: 'Source Sans 3', sans-serif;
+  font-weight: 600;
+  background: var(--green);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: white;
+  transition: background 0.2s;
+}
+
+button:hover { background: var(--green-dim); }
+
+/* ── CONTACT FORM ── */
+.contact-form {
+  max-width: 560px;
+  margin: 30px auto 0;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"] {
+  width: 100%;
+}
+
+.contact-form button {
+  align-self: flex-start;
+}
+
+/* ── FAQ ── */
+.faq-list {
+  margin-top: 30px;
+  text-align: left;
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.faq-item {
+  border-bottom: 1px solid rgba(46,194,126,0.15);
+  padding: 18px 0;
+}
+
+.faq-q {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 19px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  color: var(--text);
+  transition: color 0.2s;
+}
+
+.faq-q:hover { color: var(--green); }
+
+.faq-icon {
+  font-size: 22px;
+  color: var(--green);
+  flex-shrink: 0;
+  transition: transform 0.3s;
+}
+
+.faq-a {
+  display: none;
+  padding-top: 12px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.faq-item.open .faq-a { display: block; }
+.faq-item.open .faq-icon { transform: rotate(45deg); }
+
+/* ── FOOTER ── */
+footer {
+  margin-top: 100px;
+  text-align: center;
+  opacity: .55;
+  padding-bottom: 40px;
+  font-size: 14px;
+  line-height: 2;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .nav-links a { font-size: 12px; padding: 5px 7px; }
+  .card { padding: 22px 20px; }
+}
+
 </style>
 </head>
+
 <body>
+
+<div class="earth"></div>
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">Recovery<span>.</span>Earth</a>
-  <ul class="nav-links">
-    <li><a href="#technology">Technology</a></li>
-    <li><a href="#fish">Fish AI</a></li>
-    <li><a href="#investors">Partners</a></li>
-    <li><a href="recovery-waters-foundation.html" style="color:var(--green);border:1px solid var(--border);padding:6px 14px;border-radius:20px;">Foundation ↗</a></li>
-  </ul>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">RECOVERY EARTH</a>
+    <div class="nav-links">
+      <a href="#projects">Projects</a>
+      <a href="#technology">Technology</a>
+      <a href="#foundation">Foundation</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
 </nav>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <p class="hero-eyebrow">Environmental Technology Venture</p>
-  <h1>Helping the Planet<br><em>Recover</em></h1>
-  <p class="hero-sub">Recovery Earth builds intelligent monitoring and conservation systems that restore aquatic ecosystems and protect biodiversity.</p>
-  <div class="hero-ctas">
-    <a href="#updates" class="btn-primary">Stay Updated</a>
-    <a href="#investors" class="btn-ghost">Partner With Us</a>
-  </div>
-</div>
+<div class="container">
 
-<!-- STAT BAR -->
-<div class="stat-bar">
-  <div class="stat-inner">
-    <div class="stat-item">
-      <div class="stat-num">44</div>
-      <div class="stat-label">Fish Species in AI Model</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">12</div>
-      <div class="stat-label">Invasive Species Tracked</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">32</div>
-      <div class="stat-label">Native Species Protected</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">1</div>
-      <div class="stat-label">Active PWA Deployment</div>
-    </div>
-  </div>
-</div>
+  <!-- HERO -->
+  <h1>Recovery Earth</h1>
+  <div class="tagline">Technology to help the planet recover</div>
+  <p>
+    Recovery Earth LLC develops environmental technology designed to restore ecosystems,
+    protect biodiversity, and modernize conservation infrastructure — starting with
+    America's freshwater systems.
+  </p>
 
-<!-- TECHNOLOGY -->
-<section id="technology">
-  <p class="section-label">What We Build</p>
-  <h2>AI-Powered Environmental Infrastructure</h2>
-  <p class="lead">We develop intelligent monitoring systems that combine computer vision, sensors, and automation to give ecosystems a voice — and give conservationists the tools to respond.</p>
-  <div class="card-grid">
-    <div class="card">
-      <div class="card-icon">🔬</div>
-      <h3>Computer Vision</h3>
-      <p>Real-time species identification using deep learning models trained on native and invasive aquatic wildlife across Florida's waterways.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">📡</div>
-      <h3>Citizen Reporting</h3>
-      <p>Mobile-first progressive web apps that let everyday Floridians report invasive sightings, upload photos, and contribute to ecosystem data.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">🏛️</div>
-      <h3>Conservation Infrastructure</h3>
-      <p>Smart fish passage systems that guide native species safely through water infrastructure while autonomously filtering out invasive threats.</p>
-    </div>
-  </div>
-</section>
-
-<hr class="divider">
-
-<!-- FISH AI -->
-<section id="fish">
-  <div class="feature-layout">
-    <div>
-      <p class="section-label">Flagship Project</p>
-      <h2>Florida Waterways Guardian</h2>
-      <p class="lead">Our AI classifier identifies fish species in real time — distinguishing native wildlife from invasive threats like Bowfin, Mayan cichlids, and oscar fish.</p>
-      <ul class="pill-list">
-        <li>44-class YOLOv8 model in active training</li>
-        <li>Deployable offline via progressive web app</li>
-        <li>English / Spanish bilingual interface</li>
-        <li>Integrated citizen reporting with live data dashboard</li>
-        <li>Built for schools, anglers, and agency partners</li>
-      </ul>
-    </div>
-    <div class="feature-visual">
-      <!-- Simple fish SVG illustration -->
-      <svg class="feature-svg" viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- scan grid -->
-        <line x1="0" y1="60" x2="320" y2="60" stroke="rgba(46,194,126,0.12)" stroke-width="1"/>
-        <line x1="0" y1="120" x2="320" y2="120" stroke="rgba(46,194,126,0.12)" stroke-width="1"/>
-        <line x1="0" y1="180" x2="320" y2="180" stroke="rgba(46,194,126,0.12)" stroke-width="1"/>
-        <line x1="80" y1="0" x2="80" y2="240" stroke="rgba(46,194,126,0.12)" stroke-width="1"/>
-        <line x1="160" y1="0" x2="160" y2="240" stroke="rgba(46,194,126,0.12)" stroke-width="1"/>
-        <line x1="240" y1="0" x2="240" y2="240" stroke="rgba(46,194,126,0.12)" stroke-width="1"/>
-        <!-- fish body -->
-        <ellipse cx="155" cy="120" rx="80" ry="38" fill="rgba(46,194,126,0.15)" stroke="#2ec27e" stroke-width="1.5"/>
-        <!-- tail -->
-        <path d="M75 120 L40 90 L40 150 Z" fill="rgba(46,194,126,0.10)" stroke="#2ec27e" stroke-width="1.5"/>
-        <!-- fin top -->
-        <path d="M130 82 Q155 60 175 82" fill="rgba(46,194,126,0.12)" stroke="#2ec27e" stroke-width="1.2"/>
-        <!-- eye -->
-        <circle cx="210" cy="115" r="6" fill="rgba(46,194,126,0.2)" stroke="#2ec27e" stroke-width="1.5"/>
-        <circle cx="211" cy="114" r="2" fill="#2ec27e"/>
-        <!-- target reticle -->
-        <rect x="100" y="80" width="110" height="80" rx="4" stroke="#2ec27e" stroke-width="1" stroke-dasharray="6 4" fill="none"/>
-        <line x1="155" y1="74" x2="155" y2="86" stroke="#2ec27e" stroke-width="1"/>
-        <line x1="155" y1="154" x2="155" y2="166" stroke="#2ec27e" stroke-width="1"/>
-        <line x1="94" y1="120" x2="106" y2="120" stroke="#2ec27e" stroke-width="1"/>
-        <line x1="204" y1="120" x2="216" y2="120" stroke="#2ec27e" stroke-width="1"/>
-        <!-- label -->
-        <rect x="104" y="168" width="142" height="20" rx="3" fill="rgba(46,194,126,0.15)"/>
-        <text x="175" y="182" text-anchor="middle" font-family="monospace" font-size="10" fill="#2ec27e">LARGEMOUTH BASS 94.2%</text>
-      </svg>
-    </div>
-  </div>
-</section>
-
-<hr class="divider">
-
-<!-- EMAIL CAPTURE -->
-<div class="capture-section" id="updates">
-  <div class="capture-inner">
-    <p class="section-label" style="text-align:center">Stay in the Loop</p>
-    <h2>Join Our Early Supporters</h2>
-    <p>Receive updates on project milestones, grant announcements, and opportunities to get involved.</p>
+  <!-- STAY UPDATED -->
+  <div class="section">
+    <h2>Stay Updated</h2>
+    <p>Join our early supporters list to receive updates on projects and launches.</p>
     <form action="https://formspree.io/f/xbdzkolk" method="POST">
-      <div class="email-row">
-        <input type="email" name="email" placeholder="Your email address" required>
+      <div class="email-box">
+        <input type="email" name="email" placeholder="Enter your email" required>
         <button type="submit">Get Updates</button>
       </div>
     </form>
   </div>
-</div>
 
-<!-- INVESTORS -->
-<section id="investors">
-  <div class="investor-box">
-    <p class="section-label">Partners & Investors</p>
-    <h2>Build the Future With Us</h2>
-    <p>Recovery Earth is in active early development. We welcome mission-aligned investors, conservation agencies, water management districts, and technology partners ready to accelerate environmental recovery.</p>
+  <!-- PROJECTS -->
+  <div class="section" id="projects">
+    <h2>Our Projects</h2>
+    <p>Three interconnected initiatives addressing freshwater ecosystem health at scale.</p>
+
+    <div class="projects-grid">
+
+      <!-- FLAGSHIP: Invasive Fish Removal -->
+      <div class="card">
+        <div class="badge badge-flagship">⚑ Flagship Project</div>
+        <h3>Invasive Fish Removal System</h3>
+        <p>
+          Our primary initiative targets the bowfin and other invasive freshwater species
+          devastating native fish populations across Florida and the Southeast. We are developing
+          a smart fish passage and selective removal system that uses underwater sensors and
+          AI-powered species recognition to identify and remove invasive fish while allowing
+          native species to pass safely through water infrastructure.
+        </p>
+        <p>
+          The system integrates real-time computer vision, automated mechanical removal,
+          and data reporting — creating a scalable, low-labor solution for water managers,
+          municipalities, and conservation agencies.
+        </p>
+      </div>
+
+      <!-- SECONDARY: Florida Waterways Guardian -->
+      <div class="card">
+        <div class="badge badge-active">Active Development</div>
+        <h3>Florida Waterways Guardian</h3>
+        <p>
+          A citizen science progressive web app (PWA) that puts AI-powered fish identification
+          in the hands of anglers, students, and conservationists. Users can photograph catches
+          in the field — with or without a cell signal — and receive instant species identification,
+          invasive species alerts, and reporting tools that feed data directly to conservation
+          databases.
+        </p>
+        <p>
+          The app includes bilingual support, offline capability, and an educational layer
+          connecting users to local water health data. It also serves as the primary public
+          interface for our AI classifier, currently training on 44 freshwater species classes.
+        </p>
+      </div>
+
+      <!-- FUTURE: Water Filtration -->
+      <div class="card">
+        <div class="badge badge-future">Future Technology</div>
+        <h3>Water Filtration Technology</h3>
+        <p>
+          In parallel with our biological management systems, Recovery Earth is exploring
+          next-generation water filtration technology designed for natural waterways and
+          aquatic corridors. This initiative focuses on low-footprint, ecologically
+          compatible filtration that can be deployed alongside our fish passage
+          infrastructure.
+        </p>
+        <p>
+          This technology is currently in early research and development. We anticipate
+          piloting concepts alongside our invasive species removal deployments in future phases.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- AI TECHNOLOGY -->
+  <div class="section" id="technology">
+    <h2>AI Environmental Technology</h2>
+    <p>
+      At the core of every Recovery Earth system is a purpose-built AI platform trained
+      on aquatic ecosystems. Our computer vision models identify species in real-world
+      conditions — murky water, partial views, varying light — and integrate with
+      automated hardware to turn identification into action.
+    </p>
+    <p>
+      These intelligent systems allow real-time understanding of ecosystems and help
+      governments, water managers, and organizations respond faster to environmental change —
+      replacing slow, costly manual surveys with continuous automated monitoring.
+    </p>
+  </div>
+
+  <!-- FOUNDATION -->
+  <div class="section" id="foundation">
+    <h2>Recovery Waters Foundation</h2>
+    <p>
+      The Recovery Waters Foundation is Recovery Earth's companion nonprofit, currently in
+      formation. Its mission extends our technology into education, community outreach, and
+      conservation programs that reach schools, Title I communities, and underserved
+      waterway regions.
+    </p>
+    <p>
+      Foundation programs include Fish AI education for K–12, invasive species awareness,
+      freshwater mussel conservation, and citizen waterway cleanup initiatives — all
+      supported by the same AI tools powering our commercial systems.
+    </p>
+  </div>
+
+  <!-- INVESTOR -->
+  <div class="section">
+    <h2>Investor & Partner Interest</h2>
+    <p>
+      Recovery Earth is currently in early development. We welcome conversations with
+      mission-aligned investors, conservation agencies, and technology partners interested
+      in accelerating environmental recovery.
+    </p>
     <form action="https://formspree.io/f/yourID" method="POST">
-      <div class="email-row" style="justify-content:center;">
-        <input type="email" name="email" placeholder="Your email" required style="max-width:280px;">
-        <button type="submit">Request Info</button>
+      <div class="email-box">
+        <input type="email" name="email" placeholder="Investor email" required>
+        <button type="submit">Request Information</button>
       </div>
     </form>
   </div>
-</section>
 
-<!-- FOOTER -->
+  <!-- FAQ -->
+  <div class="section" id="faq">
+    <h2>Frequently Asked Questions</h2>
+    <p>Common questions about our technology, mission, and how to get involved.</p>
+
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          What species does the invasive fish removal system target?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          Our current focus is on freshwater invasive species affecting Florida and
+          Southeastern waterways, including the bowfin. The system is designed to be
+          retrained for additional target species as deployment expands to new regions.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          How does the AI fish identification work in murky water?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          Our computer vision models are trained specifically for real-world aquatic
+          conditions — including low visibility, partial views, and varying light. The
+          system uses underwater sensors and image processing techniques designed for
+          freshwater environments, not laboratory conditions.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Is the Florida Waterways Guardian app available now?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          The app is currently in active development. A prototype with simulated AI
+          analysis is available as a demonstration asset. The live version with our
+          trained classifier will be released as the AI model reaches accuracy benchmarks.
+          Sign up for updates to be notified at launch.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          How can schools or nonprofits get involved?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          The Recovery Waters Foundation — currently in formation — will run educational
+          programs for K–12 schools, with a focus on Title I and underserved communities.
+          Use the contact form below to express interest, and we will follow up as
+          Foundation programs come online.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Are you accepting investors or research partners?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          Yes. We welcome conversations with mission-aligned investors, conservation
+          agencies, water management districts, and technology partners. Use the investor
+          form above or the contact form below to start a conversation.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          What is the timeline for the water filtration technology?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          Water filtration is a future-phase initiative. We are currently focused on
+          delivering the invasive fish removal system and the Waterways Guardian app.
+          Filtration research will advance in parallel, with pilot concepts planned
+          alongside future fish passage infrastructure deployments.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="section" id="contact">
+    <h2>Questions & Comments</h2>
+    <p>
+      Have a question, idea, or want to connect? We read every message and will
+      get back to you as soon as we can.
+    </p>
+    <form class="contact-form" action="https://formspree.io/f/xbdzkolk" method="POST">
+      <input type="text" name="name" placeholder="Your name" required>
+      <input type="email" name="email" placeholder="Your email" required>
+      <input type="text" name="subject" placeholder="Subject (e.g. partnership, media, general)">
+      <textarea name="message" placeholder="Your message or question…" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+
+</div>
+
 <footer>
-  <div class="footer-brand">Recovery Earth</div>
-  <p>Environmental Technology for a Regenerating Planet</p>
-  <p style="margin-top:10px">© 2026 Recovery Earth LLC — New Smyrna Beach, Florida</p>
+  © 2026 Recovery Earth LLC &nbsp;·&nbsp; New Smyrna Beach, Florida<br>
+  Environmental Technology for a Regenerating Planet
 </footer>
+
+<script>
+function toggleFaq(el) {
+  const item = el.parentElement;
+  item.classList.toggle('open');
+}
+</script>
 
 </body>
 </html>
